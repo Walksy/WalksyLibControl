@@ -1,0 +1,36 @@
+name: WalksyLibControl
+version: '${version}'
+main: main.walksy.lib.control.WalksyLibControlPlugin
+api-version: '1.20'
+folia-supported: true
+description: Switch WalksyLib client mods, or single features of them, off and on - per server, world, gamemode or player.
+author: Walksy
+
+permissions:
+  wlcontrol.admin:
+    description: Every /wlcontrol sub-command.
+    default: op
+    children:
+      wlcontrol.command.status: true
+      wlcontrol.command.edit: true
+      wlcontrol.command.player: true
+      wlcontrol.command.ruleset: true
+      wlcontrol.command.reload: true
+  wlcontrol.command.status:
+    description: /wlcontrol status
+    default: op
+  wlcontrol.command.edit:
+    description: /wlcontrol disable, enable, disablewithreason, enablewithreason and reason
+    default: op
+  wlcontrol.command.player:
+    description: /wlcontrol player
+    default: op
+  wlcontrol.command.ruleset:
+    description: /wlcontrol ruleset
+    default: op
+  wlcontrol.command.reload:
+    description: /wlcontrol reload
+    default: op
+  wlcontrol.bypass:
+    description: Nothing is ever switched off for this player.
+    default: false

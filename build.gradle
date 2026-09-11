@@ -1,0 +1,56 @@
+plugins {
+    id 'java-library'
+}
+
+version = project.plugin_version
+
+base {
+    archivesName = 'WalksyLibControl'
+}
+
+sourceSets {
+    paper {
+        compileClasspath += sourceSets.main.output
+    }
+}
+
+repositories {
+    mavenCentral()
+
+    maven {
+        name = 'SpigotMC'
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+    }
+
+    maven {
+        name = 'PaperMC'
+        url = 'https://repo.papermc.io/repository/maven-public/'
+    }
+}
+
+dependencies {
+    compileOnly "org.spigotmc:spigot-api:${project.spigot_version}"
+    compileOnly 'org.jetbrains:annotations:26.0.2'
+    paperCompileOnly "io.papermc.paper:paper-api:${project.paper_version}"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 21
+    it.options.encoding = 'UTF-8'
+    it.options.compilerArgs += ['-Xlint:deprecation,removal']
+}
+
+jar {
+    from sourceSets.paper.output
+    from('LICENSE') {
+        rename { "${it}_${project.base.archivesName.get()}" }
+    }
+}
+
+processResources {
+    inputs.property 'version', project.version
+
+    filesMatching('plugin.yml') {
+        expand 'version': project.version
+    }
+}
