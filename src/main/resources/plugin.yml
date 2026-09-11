@@ -3,7 +3,7 @@ version: '${version}'
 main: main.walksy.lib.control.WalksyLibControlPlugin
 api-version: '1.20'
 folia-supported: true
-description: Switch WalksyLib client mods, or single features of them, off and on - per server, world, gamemode or player.
+description: Switch off WalksyLib client mods and features from your server
 author: Walksy
 
 permissions:
