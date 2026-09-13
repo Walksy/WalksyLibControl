@@ -16,26 +16,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
-/*
- * Wire format shared with the WalksyLib client. Numbers are VarInts; a String is a VarInt byte
- * length then UTF-8; a record is a VarInt byte length then its fields.
- *
- *   walksylib:control  version, mod count, mod record*, lifted count, lifted record*
- *     mod record       mod id, boolean whole mod off, reason, feature count, feature record*
- *     feature record   feature id, reason
- *     lifted record    mod id, feature id ("" = whole mod), reason it is back on
- *
- *   walksylib:hello    version, mod count, mod record*
- *     mod record       mod id, display name, boolean whole mod allowed, feature count, feature record*
- *     feature record   feature id
- *
- * Changing the format (keeps old clients and old plugins working with new ones):
- * - Only append: add fields at the end of a record, or sections at the end of a message. Readers
- *   ignore leftover bytes in a record or after the last section they know, and treat a missing
- *   trailing section as empty.
- * - Anything else (removing, reordering or retyping a field) must bump PROTOCOL. A reader drops
- *   a message whose version it doesn't know, so nothing gets switched off.
- */
 public final class ControlProtocol {
     public static final int PROTOCOL = 4;
     public static final String CONTROL_CHANNEL = "walksylib:control";
